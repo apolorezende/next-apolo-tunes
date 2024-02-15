@@ -12,3 +12,7 @@ export default interface AlbumData {
     releaseDate: any;
     trackCount: any;
   }
+
+export default interface Id {
+  id: string | string[] | undefined
+}

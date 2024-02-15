@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Header from "../components/Header";
 import Loading from "../components/Loading";
 import searchAlbumsAPI from "./api/searchAlbumsAPI";
-import AlbumData from "../interfece/Interface";
+import AlbumData from "../interface/Interface";
 import MusicCard from "@/components/MusicCard";
 
 function Search() {
