@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import Link from "next/link";
 import Header from "../components/Header";
 import Loading from "../components/Loading";
 import searchAlbumsAPI from "./api/searchAlbumsAPI";
 import AlbumData from "../interfece/Interface";
-import Image from "next/image";
+import MusicCard from "@/components/MusicCard";
 
 function Search() {
   const [searchBtnD, setSearchBtnD] = useState(true);
@@ -28,10 +27,10 @@ function Search() {
     setLoading(true);
     const result = await searchAlbumsAPI(inputValue);
     setInputValue("");
-    setLoading(false);
     setUsedTerm(inputValue);
     setData(result);
     setShowResults(true);
+    setLoading(false);
   };
 
   return (
@@ -41,29 +40,26 @@ function Search() {
         <Loading />
       ) : (
         <div>
-          <form>
-            <input
-              onChange={valInputSearch}
-              type="text"
-              data-testid="search-artist-input"
-              name="inputValue"
-              value={inputValue}
-            />
-            <button data-testid="search-artist-button" type="button" disabled={searchBtnD} onClick={searchAlbums}>
-              Pesquisar
-            </button>
-          </form>
+          <div className="flex bg-slate-400 justify-center py-4">
+            <form className="flex flex-col">
+              <input onChange={valInputSearch} type="text" name="inputValue" value={inputValue} />
+              <button type="button" disabled={searchBtnD} onClick={searchAlbums}>
+                Pesquisar
+              </button>
+            </form>
+          </div>
           {showResults && (
-            <div>
+            <div className="text-center">
               <p>{`Resultado de álbuns de: ${usedTerm}`}</p>
               <div className="grid grid-cols-2">
                 {data[0] ? (
                   data.map((element) => (
                     <div key={element.collectionId}>
-                      <Link href={`/album/${element.collectionId}`}>
-                        <p>{element.collectionName}</p>
-                        <Image src={element.artworkUrl100} alt={element.collectionName} width={100} height={100} />
-                      </Link>
+                      <MusicCard
+                        collectionId={element.collectionId}
+                        collectionName={element.collectionName}
+                        artworkUrl100={element.artworkUrl100}
+                      />
                     </div>
                   ))
                 ) : (

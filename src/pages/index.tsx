@@ -21,7 +21,6 @@ export default function Login({ history }: any) {
     setLoading(true);
     const userInfo = { name: inputValue };
     await createUser(userInfo);
-    setLoading(false);
     window.location.href = '/search';
 };
 
